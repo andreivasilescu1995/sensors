@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Sensors from "react-native-sensors";
+import api from './api';
 
 const Value = ({ name, value }) => (
     <View style={styles.valueContainer}>
@@ -30,6 +31,7 @@ export default function (sensorName, values) {
             const subscription = sensor$.subscribe((values) => {
                 if (sensorName == 'accelerometer') {
                     console.log(values);
+                    api.post('/insert', { values: values })
                 }
                 this.setState({ ...values });
             });
